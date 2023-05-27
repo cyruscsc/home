@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<%- include("colourmode") -%>
+
+  <head>
+    <title>Home | Sign In</title>
+    <link rel="stylesheet" href="css/sign-up.css">
+    <%- include("head") -%>
+  </head>
+  <body class="bg-primary-colour">
+    <main class="container">
+      <div class="row text-center pb-3">
+        <div class="col-3 d-flex align-items-center justify-content-center">
+          <p class="navbar-brand m-0">h:</p>
+        </div>
+        <div class="col-9 d-flex align-items-center justify-content-center">
+          <h3 class="m-0">Sign in to home</h3>
+        </div>
+      </div>
+      <form action="/sign-in" method="post">
+        <div class="form-floating">
+          <input id="floatingUsername" class="user-input form-control rounded-bottom-0" type="text" name="username" placeholder="Username">
+          <label for="floatingUsername">Username</label>
+        </div>
+        <div class="form-floating">
+          <input id="floatingPassword" class="user-input form-control rounded-top-0 rounded-bottom-0" type="password" name="password" placeholder="Password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <button class="btn btn-lg btn-secondary rounded-top-0 w-100" type="submit" name="submit">Sign In</button>
+      </form>
+      <div class="row my-3">
+        <p class="error-message my-0" <%= message.length > 0 ? "" : "hidden" %>> <%= message %></p>
+        <p class="my-0">Don't have an account yet? <a href="/sign-up">Sign up</a></p>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<%- include("colourmode") -%>
+
+  <head>
+    <title>Home | Sign Up</title>
+    <link rel="stylesheet" href="css/sign-up.css">
+    <%- include("head") -%>
+  </head>
+  <body class="bg-primary-colour">
+    <main class="container">
+      <div class="row text-center pb-3">
+        <div class="col-3 d-flex align-items-center justify-content-center">
+          <p class="navbar-brand m-0">h:</p>
+        </div>
+        <div class="col-9 d-flex align-items-center justify-content-center">
+          <h3 class="m-0">Sign up to home</h3>
+        </div>
+      </div>
+      <form action="/sign-up" method="post">
+        <div class="form-floating">
+          <input id="floatingUsername" class="user-input form-control" type="text" name="username" placeholder="Username">
+          <label for="floatingUsername">Username</label>
+        </div>
+        <ul class="requirement-list form-text">
+          <li class="requirement username-length"> Contains 2 to 16 characters.</li>
+        </ul>        
+        <div class="form-floating">
+          <input id="floatingNickname" class="user-input form-control" type="text" name="nickname" placeholder="Nickname">
+          <label for="floatingNickname">Nickname</label>
+        </div>
+        <ul class="requirement-list form-text">
+          <li class="requirement nickname-length"> Contains 2 to 10 characters.</li>
+        </ul>        
+        <div class="form-floating">
+          <input id="floatingPassword" class="user-input form-control" type="password" name="password" placeholder="Password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <ul class="requirement-list form-text">
+          <li class="requirement password-length"> Contains at least 8 characters.</li>
+          <li class="requirement password-letter"> Contains at least 1 letter.</li>
+          <li class="requirement password-number"> Contains at least 1 number.</li>
+        </ul>
+        <button class="sign-up-btn btn btn-lg btn-secondary w-100" type="submit" name="submit" disabled>Sign Up</button>
+      </form>
+      <div class="row my-3">
+        <p class="error-message my-0" <%= message.length > 0 ? "" : "hidden" %>> <%= message %></p>
+        <p class="my-0">Already have an account? <a href="/sign-in">Sign in</a></p>
+      </div>
+    </main>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <!-- Sign-up validation -->
+    <script src="js/sign-up-validation.js"></script>
+  </body>
+</html>

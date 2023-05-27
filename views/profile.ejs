@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<%- include("colourmode") -%>
+
+  <head>
+    <title><%= user.nickname %></title>
+    <link rel="stylesheet" href="css/profile.css">
+    <%- include("head") -%>
+  </head>
+  <body class="bg-primary-colour">
+
+    <%- include("navbar") -%>
+
+    <section id="information">
+      <div class="container pt-5">
+        <form action="/update-information" method="post">
+          <fieldset>
+            <legend>Account details</legend>
+            <div class="card">
+              <div class="card-body">
+                <div class="mb-3 px-3">
+                  <label class="form-label" for="username">Username</label>
+                  <input id="username" class="user-input form-control-plaintext" type="text" readonly name="username" value="<%= user.username %>">
+                </div>
+                <div class="px-3">
+                  <label class="form-label" for="nickname">Nickname</label>
+                  <input id="nickname" class="user-input form-control" type="text" name="nickname" value="<%= user.nickname %>" placeholder="<%= user.nickname %>">
+                </div>
+                <ul class="requirement-list form-text px-3 mb-3">
+                  <li id="nickname-length" class="requirement my-0"> Contains 2 to 10 characters.</li>
+                </ul>
+                <div class="mb-3 px-3">
+                  <label class="form-label" for="email">Email</label>
+                  <input id="email" class="user-input form-control" type="email" name="email" value="<%= user.email %>" placeholder="<%= user.email %>" disabled>
+                  <small id="emailHelp" class="form-text text-muted">It is used for password reset, which is one of the functions coming soon.</small>
+                </div>
+                <button id="update-btn" class="btn btn-secondary mx-3" type="submit" name="submit" disabled>Update</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+
+    <section id="preferences">
+      <div class="container py-5">
+        <form action="/update-preferences" method="post">
+          <fieldset>
+            <legend>Preferences</legend>
+            <div class="card">
+              <div class="card-body">
+                <div class="mb-3 px-3">
+                  <label class="form-label">Colour Mode</label>
+                  <div class="form-check">
+                    <input type="radio" id="lightMode" class="user-input form-check-input" name="darkmode" value=false <%= user.darkmode == false ? "checked" : "" %> disabled>
+                    <label class="form-check-label" for="lightMode">Light mode</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="radio" id="darkMode" class="user-input form-check-input user-input" name="darkmode" value=true <%= user.darkmode == true ? "checked" : "" %> disabled>
+                    <label class="form-check-label" for="darkMode">Dark mode</label>
+                  </div>
+                  <small class="form-text text-muted">Colour mode is coming soon.</small>
+                </div>
+                <div class="mb-3 px-3">
+                  <label class="form-label" for="location">Location</label>
+                  <select class="user-input form-select" name="location" id="location">
+                    <% locationOptions.forEach(locationOption => { %>
+                      <% const selected = (user.location == locationOption) ? "selected" : ""; %>
+                      <option value="<%= locationOption %>" <%= selected %>><%= locationOption %></option>
+                    <% }); %>
+                  </select>
+                </div>
+                <button class="btn btn-secondary mx-3" type="submit" name="submit">Save</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+
+    <script>
+      let nicknameLength = document.getElementById("nickname-length");
+      let updateBtn = document.getElementById("update-btn");
+
+      document.getElementById("nickname").onkeyup = function() {validateUsername()};
+
+      function validateUsername() {
+        const nicknameValue = document.getElementById("nickname").value;
+        if (nicknameValue.length >= 2 && nicknameValue.length <= 10) {
+          nicknameLength.classList.add("valid");
+        } else {
+          nicknameLength.classList.remove("valid");
+        }
+        if (nicknameLength.classList.contains("valid")) {
+          updateBtn.disabled = false;
+        } else {
+          updateBtn.disabled = true;
+        }
+      }
+    </script>
+
+  <%- include("foot") -%>

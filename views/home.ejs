@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<%- include("colourmode") -%>
+
+  <head>
+    <title>Home</title>
+    <%- include("head") -%>
+  </head>
+  <body class="bg-secondary-colour">
+
+    <%- include("navbar") -%>
+
+    <section id="title" class="bg-primary-colour">
+      <div class="container text-center py-5">
+        <div class="row">
+          <h1 class="greeting py-3 py-md-5">
+            <% if (user) { %>
+              Hi <%= user.nickname %>
+            <% } else { %>
+              Hi there
+            <% }; %>
+          </h1>
+        </div>
+        <div class="row">
+          <form class="form-row" action="https://google.com/search" method="get" target="_blank">
+            <div class="form-group col-8 col-md-6 col-lg-4 mx-auto">
+              <div class="input-group">
+                <input class="search-bar form-control bg-transparent rounded-pill rounded-end border-end-0" type="text" name="q" placeholder="What's on your mind?">
+                <button class="btn rounded-pill rounded-start border-top border-end border-bottom" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="widgets" class="bg-secondary-colour">
+      <div class="container py-5">
+        <div class="row">
+          <div class="col-12 col-md-4 col-lg-3 ms-auto">
+            <div class="row p-2">
+              <div class="card">
+                <div class="card-body">
+                  <div class="text-center text-middle">
+                      <img class="weather-title weather-icon" src="<%= weather.icon %>">
+                      <p class="weather-title"><%= weather.temperatureC %> °C</p>
+                  </div>
+                  <div>
+                    <p class="text-center m-0"><%= weather.condition %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row p-2">
+              <div class="card">
+                <div class="card-body">
+                  <figure class="m-0 text-center text-md-start">
+                    <blockquote class="blockquote mb-2">
+                      <p><%= quote.q %></p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer m-0"><%= quote.a %></figcaption>
+                  </figure>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-5 me-auto">
+            <div class="row p-2">
+              <div class="card">
+                <div class="card-body text-start">
+                  <h3 class="card-title">To-do List</h3>
+                  <% if (user) { %>
+                    <% if (user.todolist.length > 0) { %>
+                      <form class="list-group list-group-flush" action="/finish-task" method="post">
+                      <% let openTaskCount = 0 %>
+                      <% user.todolist.forEach((task) => { %>
+                        <% if (!task.done) { %>
+                          <div class="list-group-item">
+                            <input class="me-3" type="checkbox" name="checkbox" value="<%= task._id %>" onChange="this.form.submit()">
+                            <p class="task-title"><%= task.taskTitle %></p>
+                          </div>
+                          <% openTaskCount++ %>
+                        <% } %>
+                      <% }); %>
+                      <% if (openTaskCount === 0) { %>
+                        <p>You have finished all your tasks.</p>
+                      <% } %>
+                      </form>
+                    <% } else { %>
+                      <p>You have nothing to do.</p>
+                    <% } %>
+                    <form class="" action="/create-task" method="post">
+                      <div class="input-group">
+                        <input class="user-input form-control" type="text" name="newTaskTitle">
+                        <button class="btn btn-outline-secondary" type="submit" name="submit"><i class="fa-solid fa-plus"></i></button>
+                      </div>
+                    </form>
+                  <% } else { %>
+                    <p><a href="/sign-up">Sign up</a> or <a href="/sign-in">sign in</a> to enjoy more features of home.</p>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <%- include("foot") -%>

@@ -1,0 +1,9 @@
+<% try { %>
+  <% if (user.darkmode) { %>
+    <html lang="en" dir="ltr" data-bs-theme="dark">
+  <% } else {%>
+    <html lang="en" dir="ltr">
+  <% } %>
+<% } catch(err) { %>
+  <html lang="en" dir="ltr">
+<% } %>

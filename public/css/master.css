@@ -1,0 +1,71 @@
+:root {
+  --primary-colour: #FDEEDC;
+  --secondary-colour: #F7F7F7;
+  --highlight-colour: #FFD8A9;
+  --link-colour: #F1A661;
+}
+
+body {
+  font-family: 'Nunito Sans', sans-serif !important;
+}
+
+p a {
+  color: var(--link-colour) !important;
+  text-decoration: none !important;
+}
+
+main.container {
+  width: 25rem;
+}
+
+.bg-primary-colour {
+  background-color: var(--primary-colour);
+}
+
+.bg-secondary-colour {
+  background-color: var(--secondary-colour);
+}
+
+.navbar-brand {
+  font-size: 2rem !important;
+  font-weight: 600;
+}
+
+.greeting {
+  font-size: 8vw;
+  margin: 0;
+}
+
+.blockquote {
+  font-size: 1rem;
+}
+
+.weather-title {
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.weather-icon {
+  width: 3rem;
+}
+
+.task-title {
+  display: inline-block;
+  margin: 0;
+}
+
+.user-input:focus {
+  border-color: var(--highlight-colour) !important;
+  box-shadow: 0 0 0 0.2rem var(--highlight-colour) !important;
+}
+
+.search-bar:focus {
+  border-color: #DEE2E6 !important;
+  box-shadow: none !important;
+}
+
+.form-title {
+  vertical-align: middle;
+}

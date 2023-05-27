@@ -1,0 +1,20 @@
+.requirement-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.requirement::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f192";
+}
+
+.valid::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f058";
+}
+
+.valid {
+  color: #95CD41;
+}
