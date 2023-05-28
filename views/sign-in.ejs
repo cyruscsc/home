@@ -4,7 +4,7 @@
 
   <head>
     <title>Home | Sign In</title>
-    <link rel="stylesheet" href="css/sign-up.css">
+    <link rel="stylesheet" href="/css/sign-up.css">
     <%- include("head") -%>
   </head>
   <body class="bg-primary-colour">
@@ -17,7 +17,7 @@
           <h3 class="m-0">Sign in to home</h3>
         </div>
       </div>
-      <form action="/sign-in" method="post">
+      <form action="/home/sign-in" method="post">
         <div class="form-floating">
           <input id="floatingUsername" class="user-input form-control rounded-bottom-0" type="text" name="username" placeholder="Username">
           <label for="floatingUsername">Username</label>
@@ -30,7 +30,7 @@
       </form>
       <div class="row my-3">
         <p class="error-message my-0" <%= message.length > 0 ? "" : "hidden" %>> <%= message %></p>
-        <p class="my-0">Don't have an account yet? <a href="/sign-up">Sign up</a></p>
+        <p class="my-0">Don't have an account yet? <a href="/home/sign-up">Sign up</a></p>
       </div>
     </main>
   </body>
