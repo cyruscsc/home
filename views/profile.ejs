@@ -4,7 +4,7 @@
 
   <head>
     <title><%= user.nickname %></title>
-    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="css/profile.css">
     <%- include("head") -%>
   </head>
   <body class="bg-primary-colour">
@@ -13,7 +13,7 @@
 
     <section id="information">
       <div class="container pt-5">
-        <form action="/home/update-information" method="post">
+        <form action="/update-information" method="post">
           <fieldset>
             <legend>Account details</legend>
             <div class="card">
@@ -44,7 +44,7 @@
 
     <section id="preferences">
       <div class="container py-5">
-        <form action="/home/update-preferences" method="post">
+        <form action="/update-preferences" method="post">
           <fieldset>
             <legend>Preferences</legend>
             <div class="card">

@@ -1,16 +1,16 @@
 <nav class="navbar navbar-expand bg-primary-colour px-3">
-  <a class="navbar-brand me-auto" href="/home">h:</a>
+  <a class="navbar-brand me-auto" href="/">h:</a>
   <div class="nav-item dropdown ms-auto">
     <button class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="dropdown-menu dropdown-menu-end">
       <% if (user) { %>
-        <a class="dropdown-item" href="/home/profile">Profile</a>
-        <a class="dropdown-item" href="/home/sign-out">Sign out</a>
+        <a class="dropdown-item" href="/profile">Profile</a>
+        <a class="dropdown-item" href="/sign-out">Sign out</a>
       <% } else { %>
-        <a class="dropdown-item" href="/home/sign-up">Sign up</a>
-        <a class="dropdown-item" href="/home/sign-in">Sign in</a>
+        <a class="dropdown-item" href="/sign-up">Sign up</a>
+        <a class="dropdown-item" href="/sign-in">Sign in</a>
       <% } %>
     </div>
   </div>

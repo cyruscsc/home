@@ -9,11 +9,11 @@ const axios = require('axios');
 const flash = require('connect-flash');
 
 const app = express();
-const port = 3100;
+const port = 3000;
 const supportedLocation = ["Auto", "Hong Kong", "London", "Sydney", "Toronto"];
 
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + "/public"));
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
   secret: "This is not really a secret.",
@@ -53,7 +53,7 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/home", (req, res) => {
+app.get("/", (req, res) => {
   let currentUser = undefined;
   let userLocation = undefined;
   let weatherData = undefined;
@@ -107,28 +107,28 @@ app.get("/home", (req, res) => {
     });
 });
 
-app.get("/home/profile", (req, res) => {
+app.get("/profile", (req, res) => {
   if (req.isAuthenticated()) {
     res.render("profile", {user: req.user, locationOptions: supportedLocation});
   } else {
-    res.redirect("/home");
+    res.redirect("/");
   }
 });
 
-app.get("/home/sign-up", (req, res) => {
+app.get("/sign-up", (req, res) => {
   if (req.isAuthenticated()) {
-    res.redirect("/home");
+    res.redirect("/");
   } else {
     res.render("sign-up", {message: req.flash("error")});
   }
 });
 
-app.post("/home/sign-up", (req, res) => {
+app.post("/sign-up", (req, res) => {
   User.register({username: req.body.username}, req.body.password, (errRegister, user) => {
     if (errRegister) {
       console.log(errRegister);
       req.flash("error", "Username is used");
-      res.redirect("/home/sign-up");
+      res.redirect("/sign-up");
     } else {
       passport.authenticate("local")(req, res, () => {
         User.updateOne({username: req.user.username}, {nickname: req.body.nickname, location: "Auto", darkmode: false})
@@ -139,41 +139,41 @@ app.post("/home/sign-up", (req, res) => {
               console.log(`Updated Docs: ${docs}`);
             }
           });
-        res.redirect("/home");
+        res.redirect("/");
       });
     }
   });
 });
 
-app.get("/home/sign-in", (req, res) => {
+app.get("/sign-in", (req, res) => {
   if (req.isAuthenticated()) {
-    res.redirect("/home");
+    res.redirect("/");
   } else {
     res.render("sign-in", {message: req.flash("error")});
   }
 });
 
-app.post("/home/sign-in", passport.authenticate("local", {
-  failureRedirect: "/home/sign-in", 
+app.post("/sign-in", passport.authenticate("local", {
+  failureRedirect: "/sign-in", 
   failureFlash: true
 }), (req, res) => {
-  res.redirect("/home");
+  res.redirect("/");
 });
 
-app.get("/home/sign-out", (req, res) => {
+app.get("/sign-out", (req, res) => {
   if (req.isAuthenticated()) {
     req.logout((err) => {
       if (err) {
         return next(err);
       }
     });
-    res.redirect("/home/sign-in");
+    res.redirect("/sign-in");
   } else {
-    res.redirect("/home");
+    res.redirect("/");
   }
 });
 
-app.post("/home/create-task", (req, res) => {
+app.post("/create-task", (req, res) => {
   const newTask = {
     taskTitle: req.body.newTaskTitle,
     dateCreated: new Date(),
@@ -187,10 +187,10 @@ app.post("/home/create-task", (req, res) => {
         console.log(`Updated Docs: ${docs}`);
       }
     });
-  res.redirect("/home");
+  res.redirect("/");
 });
 
-app.post("/home/finish-task", (req, res) => {
+app.post("/finish-task", (req, res) => {
   const todolist = req.user.todolist;
   const taskFinishedID = req.body.checkbox;
   const index = todolist.findIndex((task) => task._id.equals(taskFinishedID));
@@ -205,10 +205,10 @@ app.post("/home/finish-task", (req, res) => {
         console.log(`Updated Docs: ${docs}`);
       }
     });
-  res.redirect("/home");
+  res.redirect("/");
 });
 
-app.post("/home/update-information", (req, res) => {
+app.post("/update-information", (req, res) => {
   User.updateOne({username: req.user.username}, {nickname: req.body.nickname, email: req.body.email})
     .then((err, docs) => {
       if (err) {
@@ -217,10 +217,10 @@ app.post("/home/update-information", (req, res) => {
         console.log(`Updated Docs: ${docs}`);
       }
     });
-  res.redirect("/home/profile");
+  res.redirect("/profile");
 });
 
-app.post("/home/update-preferences", (req, res) => {
+app.post("/update-preferences", (req, res) => {
   User.updateOne({username: req.user.username}, {darkmode: req.body.darkmode, location: req.body.location})
     .then((err, docs) => {
       if (err) {
@@ -229,7 +229,7 @@ app.post("/home/update-preferences", (req, res) => {
         console.log(`Updated Docs: ${docs}`);
       }
     });
-  res.redirect("/home/profile");
+  res.redirect("/profile");
 });
 
 app.listen(port, () => {

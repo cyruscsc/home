@@ -71,7 +71,7 @@
                   <h3 class="card-title">To-do List</h3>
                   <% if (user) { %>
                     <% if (user.todolist.length > 0) { %>
-                      <form class="list-group list-group-flush" action="/home/finish-task" method="post">
+                      <form class="list-group list-group-flush" action="/finish-task" method="post">
                       <% let openTaskCount = 0 %>
                       <% user.todolist.forEach((task) => { %>
                         <% if (!task.done) { %>
@@ -89,14 +89,14 @@
                     <% } else { %>
                       <p>You have nothing to do.</p>
                     <% } %>
-                    <form class="" action="/home/create-task" method="post">
+                    <form class="" action="/create-task" method="post">
                       <div class="input-group">
                         <input class="user-input form-control" type="text" name="newTaskTitle">
                         <button class="btn btn-outline-secondary" type="submit" name="submit"><i class="fa-solid fa-plus"></i></button>
                       </div>
                     </form>
                   <% } else { %>
-                    <p><a href="/home/sign-up">Sign up</a> or <a href="/home/sign-in">sign in</a> to enjoy more features of home.</p>
+                    <p><a href="/sign-up">Sign up</a> or <a href="/sign-in">sign in</a> to enjoy more features of home.</p>
                   <% } %>
                 </div>
               </div>
