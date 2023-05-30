@@ -9,7 +9,7 @@ const axios = require('axios');
 const flash = require('connect-flash');
 
 const app = express();
-const port = 3000;
+const port = 3001;
 const supportedLocation = ["Auto", "Hong Kong", "London", "Sydney", "Toronto"];
 
 app.set("view engine", "ejs");
