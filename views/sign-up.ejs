@@ -17,7 +17,7 @@
           <h3 class="m-0">Sign up to home</h3>
         </div>
       </div>
-      <form action="/sign-up" method="post">
+      <form action="/home/sign-up" method="post">
         <div class="form-floating">
           <input id="floatingUsername" class="user-input form-control" type="text" name="username" placeholder="Username">
           <label for="floatingUsername">Username</label>
@@ -45,7 +45,7 @@
       </form>
       <div class="row my-3">
         <p class="error-message my-0" <%= message.length > 0 ? "" : "hidden" %>> <%= message %></p>
-        <p class="my-0">Already have an account? <a href="/sign-in">Sign in</a></p>
+        <p class="my-0">Already have an account? <a href="/home/sign-in">Sign in</a></p>
       </div>
     </main>
     <!-- jQuery -->

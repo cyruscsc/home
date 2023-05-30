@@ -111,13 +111,13 @@ app.get("/profile", (req, res) => {
   if (req.isAuthenticated()) {
     res.render("profile", {user: req.user, locationOptions: supportedLocation});
   } else {
-    res.redirect("/");
+    res.redirect("/home/");
   }
 });
 
 app.get("/sign-up", (req, res) => {
   if (req.isAuthenticated()) {
-    res.redirect("/");
+    res.redirect("/home/");
   } else {
     res.render("sign-up", {message: req.flash("error")});
   }
@@ -128,7 +128,7 @@ app.post("/sign-up", (req, res) => {
     if (errRegister) {
       console.log(errRegister);
       req.flash("error", "Username is used");
-      res.redirect("/sign-up");
+      res.redirect("/home/sign-up");
     } else {
       passport.authenticate("local")(req, res, () => {
         User.updateOne({username: req.user.username}, {nickname: req.body.nickname, location: "Auto", darkmode: false})
@@ -139,7 +139,7 @@ app.post("/sign-up", (req, res) => {
               console.log(`Updated Docs: ${docs}`);
             }
           });
-        res.redirect("/");
+        res.redirect("/home/");
       });
     }
   });
@@ -147,17 +147,17 @@ app.post("/sign-up", (req, res) => {
 
 app.get("/sign-in", (req, res) => {
   if (req.isAuthenticated()) {
-    res.redirect("/");
+    res.redirect("/home/");
   } else {
     res.render("sign-in", {message: req.flash("error")});
   }
 });
 
 app.post("/sign-in", passport.authenticate("local", {
-  failureRedirect: "/sign-in", 
+  failureRedirect: "/home/sign-in", 
   failureFlash: true
 }), (req, res) => {
-  res.redirect("/");
+  res.redirect("/home/");
 });
 
 app.get("/sign-out", (req, res) => {
@@ -167,9 +167,9 @@ app.get("/sign-out", (req, res) => {
         return next(err);
       }
     });
-    res.redirect("/sign-in");
+    res.redirect("/home/sign-in");
   } else {
-    res.redirect("/");
+    res.redirect("/home/");
   }
 });
 
@@ -187,7 +187,7 @@ app.post("/create-task", (req, res) => {
         console.log(`Updated Docs: ${docs}`);
       }
     });
-  res.redirect("/");
+  res.redirect("/home/");
 });
 
 app.post("/finish-task", (req, res) => {
@@ -205,7 +205,7 @@ app.post("/finish-task", (req, res) => {
         console.log(`Updated Docs: ${docs}`);
       }
     });
-  res.redirect("/");
+  res.redirect("/home/");
 });
 
 app.post("/update-information", (req, res) => {
@@ -217,7 +217,7 @@ app.post("/update-information", (req, res) => {
         console.log(`Updated Docs: ${docs}`);
       }
     });
-  res.redirect("/profile");
+  res.redirect("/home/profile");
 });
 
 app.post("/update-preferences", (req, res) => {
@@ -229,7 +229,7 @@ app.post("/update-preferences", (req, res) => {
         console.log(`Updated Docs: ${docs}`);
       }
     });
-  res.redirect("/profile");
+  res.redirect("/home/profile");
 });
 
 app.listen(port, () => {
