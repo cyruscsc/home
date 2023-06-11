@@ -75,36 +75,32 @@ app.get("/", (req, res) => {
   const weatherAPIKey = process.env.WEATHERAPI_KEY;
   const weatherAPI = "https://api.weatherapi.com/v1/current.json";
   const weatherURL = `${weatherAPI}?key=${weatherAPIKey}&q=${userLocation}`;
-  axios.get(weatherURL)
-    .then(resWeather => {
-      weatherData = {
-        locationName: resWeather.data.location.name,
-        localTime: resWeather.data.location.localtime,
-        temperatureC: resWeather.data.current.temp_c,
-        temperatureF: resWeather.data.current.temp_f,
-        humidity: resWeather.data.current.humidity,
-        condition: resWeather.data.current.condition.text,
-        icon: resWeather.data.current.condition.icon,
-      };
-    })
-    .catch(errWeather => {
-      console.log(errWeather);
-    })
-    .finally(() => {
+  const getWeatherData = async url => {
+    const response = await axios.get(url);
+    return {
+      locationName: response.data.location.name,
+      localTime: response.data.location.localtime,
+      temperatureC: response.data.current.temp_c,
+      temperatureF: response.data.current.temp_f,
+      humidity: response.data.current.humidity,
+      condition: response.data.current.condition.text,
+      icon: response.data.current.condition.icon,
+    };
+  };
 
-      // Get daily quote
-      const quoteURL = "https://zenquotes.io/api/today";
-      axios.get(quoteURL)
-        .then(resQuote => {
-          quoteData = resQuote.data[0];
-        })
-        .catch(errQuote => {
-          console.log(errQuote);
-        })
-        .finally(() => {
-          res.render("home", {user: currentUser, weather: weatherData, quote: quoteData});
-        });
-    });
+  // Get quote data
+  const quoteURL = "https://zenquotes.io/api/today";
+  const getQuoteData = async url => {
+    const response = await axios.get(url);
+    return response.data[0];
+  };
+  
+  (async () => {
+    weatherData = await getWeatherData(weatherURL);
+    quoteData = await getQuoteData(quoteURL);
+    res.render("home", {user: currentUser, weather: weatherData, quote: quoteData});
+  })()
+
 });
 
 app.get("/profile", (req, res) => {
